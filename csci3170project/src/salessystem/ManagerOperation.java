@@ -124,7 +124,7 @@ public class ManagerOperation extends BasicOperation {
         PreparedStatement statement = this.connection
                 .prepareStatement(
                         "SELECT *, COUNT(transaction.t_id) AS transaction_count FROM (salesperson INNER JOIN transaction ON transaction.s_id = salesperson.s_id) WHERE s_experience >="
-                                + lowerBound + " AND s_experience <=" + upperBound + " GROUP BY salesperson.s_id");
+                                + lowerBound + " AND s_experience <=" + upperBound + " GROUP BY salesperson.s_id ORDER BY salesperson.s_id DESC");
 
         ResultSet rs = statement.executeQuery();
         System.out.println("Transaction Record:");

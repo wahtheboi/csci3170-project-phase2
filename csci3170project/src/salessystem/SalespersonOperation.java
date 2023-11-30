@@ -145,10 +145,12 @@ public class SalespersonOperation extends BasicOperation {
         }
     }
 
+    //sell a part
     private void sellPartOption() throws Exception {
         int partID = -1;
         int salespersonID = -1;
 
+        //part id validation
         while (partID <= 0 || partID > 32) {
             System.out.print("Enter The Part ID: ");
             partID = getInputInteger();
@@ -156,7 +158,7 @@ public class SalespersonOperation extends BasicOperation {
                 System.out.println("No existing Part ID, please try again.");
             }
         }
-
+        //salesperson id validation
         while (salespersonID <= 0 || salespersonID > 4) {
             System.out.print("Enter The Salesperson ID: ");
             salespersonID = getInputInteger();
@@ -168,7 +170,7 @@ public class SalespersonOperation extends BasicOperation {
         PreparedStatement statement = this.connection
                 .prepareStatement("SELECT * FROM part WHERE part.p_id = " + partID);
         ResultSet rs = statement.executeQuery();
-
+        //part quantity validation
         rs.next();
         if (rs.getInt("p_available_quantity") > 0) {
             sellPart(rs, partID, salespersonID);
@@ -196,8 +198,8 @@ public class SalespersonOperation extends BasicOperation {
 
         Date currentDate = resultSet.getDate(1);
 
-        System.out.println(newPrimaryKey);
-        System.out.println(currentDate);
+        //System.out.println(newPrimaryKey);
+        //System.out.println(currentDate);
 
         ps = this.connection.prepareStatement("INSERT INTO transaction (t_id, p_id, s_id, t_date) VALUES (?, ?, ?, ?)");
         ps.setInt(1, newPrimaryKey);
@@ -207,6 +209,7 @@ public class SalespersonOperation extends BasicOperation {
 
         ps.executeUpdate();
 
+        //update part quantity
         ps = this.connection.prepareStatement("Update part SET p_available_quantity=? WHERE p_id =" + partID);
         ps.setInt(1, rs.getInt("p_available_quantity") - 1);
         ps.executeUpdate();
