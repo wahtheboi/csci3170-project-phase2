@@ -45,10 +45,10 @@ public class SalesSystem extends BasicOperation {
                 AdministratorOperation admin = new AdministratorOperation(connection);
                 admin.start();
                 break;
-            // case 2:
-            // SalespersonOperation sales = new SalespersonOperation(db);
-            // sales.start();
-            // break;
+            case 2:
+                SalespersonOperation sales = new SalespersonOperation(connection);
+                sales.start();
+                break;
             // case 3:
             // ManagerOperation head = new ManagerOperation(db);
             // head.start();
